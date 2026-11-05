@@ -59,18 +59,19 @@
                    FontFamily="MaterialIcons"
                    TextColor="White"
                    VerticalOptions="Center"
-                   Clicked="OnSignInButtonClicked"/>
+                   Clicked="OnTugglePasswordButtonClicked"/>
             </Grid>
         </Border>
 
         <!-- כפתור כניסה-->
         <Button
-       CornerRadius="8"
-       FontSize="18"
-       HeightRequest="50"
-       IsEnabled="False"
-       Text="חיבור"
-       TextColor="White"/>
+           CornerRadius="8"
+           FontSize="18"
+           HeightRequest="50"
+           IsEnabled="{Binding IsSignInButtonEnabled}"
+           Text="חיבור"
+           TextColor="White"
+           Clicked="OnSignInButtonClicked"/>
 
         <!-- שגיאה-->
         <Label

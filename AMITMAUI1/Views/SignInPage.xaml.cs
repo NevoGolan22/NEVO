@@ -1,4 +1,5 @@
 using AMITMAUI1.Helper;
+using AMITMAUI1.Service;
 
 namespace AMITMAUI1.Views;
 
@@ -8,6 +9,12 @@ public partial class SignInPage : ContentPage
     private string _username;
     private string _password;
     private bool _enteryasPassword;
+    private bool _isDEbugMode => true;
+    private DBMokup _dbMokup;
+    public bool IsSignInButtonEnabled
+    {
+        get => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(UserPassword));
+    }
     public string Username
     {
         get => _username;
@@ -17,6 +24,7 @@ public partial class SignInPage : ContentPage
             {
                 _username = value;
                 OnPropertyChanged(nameof(Username));
+                OnPropertyChanged(nameof(IsSignInButtonEnabled));
             }
         }
     }
@@ -29,6 +37,7 @@ public partial class SignInPage : ContentPage
             {
                 _password = value;
                 OnPropertyChanged(nameof(UserPassword));
+                OnPropertyChanged(nameof(IsSignInButtonEnabled));
             }
         }
     }
@@ -46,15 +55,21 @@ public partial class SignInPage : ContentPage
     }
 
     public SignInPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         BindingContext = this;
-        _enteryasPassword = true;
+        EntryAsPassword = true;
+
+        _dbMokup = new DBMokup();
+
+        if (_isDEbugMode)
+        {
+            Username = "admin@mail.com";
+            UserPassword = "admin";
+        }
     }
 
-    public object PasswordEntry { get; private set; }
-
-    private void OnSignInButtonClicked(object sender, EventArgs e)
+    void OnTugglePasswordButtonClicked(object sender, EventArgs e)
     {
         var visBtn = sender as Button;
         if (EntryAsPassword)
@@ -63,5 +78,20 @@ public partial class SignInPage : ContentPage
             visBtn!.Text = FontHelper.OPEN_EYE_ICON;
 
         EntryAsPassword = !EntryAsPassword;
+    }
+    
+    private void OnSignInButtonClicked(object sender, EventArgs e)
+    {
+      if (_dbMokup.isExist(Username, UserPassword))
+      {
+            errorLbl.IsVisible=true;
+            errorLbl.Text = "Sign in successful!";
+      }
+        else
+        {
+            errorLbl.IsVisible = true;
+
+            errorLbl.Text = "Invalid username or password.";
+        }
     }
 }

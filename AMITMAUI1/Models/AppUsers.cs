@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace AMITMAUI1.Models
 {
-    public class User
+    public class AppUsers
     {
-        public required string UserEmail { get; set; }
-        public required string UserPassword { get; set; }
+        public string? UserEmail { get; set; }
+
+        public string? UserPassword { get; set; }
     }
 }
