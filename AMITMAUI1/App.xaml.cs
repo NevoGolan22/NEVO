@@ -1,4 +1,7 @@
-﻿namespace AMITMAUI1
+﻿
+using AMITMAUI1.Views;
+
+namespace AMITMAUI1
 {
     public partial class App : Application
     {
@@ -9,7 +12,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new NewPage1());
+            return new Window(new SignInPage());
         }
     }
 }

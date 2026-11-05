@@ -65,7 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="NewPage1.xaml">
+	  <MauiXaml Update="Views\SignInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
