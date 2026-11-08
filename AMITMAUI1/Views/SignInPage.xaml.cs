@@ -9,11 +9,27 @@ public partial class SignInPage : ContentPage
     private string _username;
     private string _password;
     private bool _enteryasPassword;
+    private bool _isMessageLabelVisble;
+    private string _MessageText;
+    private Color _messageTextColor;
     private bool _isDEbugMode => true;
     private DBMokup _dbMokup;
     public bool IsSignInButtonEnabled
     {
         get => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(UserPassword));
+    }
+    
+    public bool IsMessageLabelVisble
+    {
+        get => _isMessageLabelVisble;
+        set
+        {
+            if (_isMessageLabelVisble != value)
+            {
+                _isMessageLabelVisble = value;
+                OnPropertyChanged(nameof(IsMessageLabelVisble));
+            }
+        }
     }
     public string Username
     {
@@ -53,6 +69,30 @@ public partial class SignInPage : ContentPage
             }
         }
     }
+    public string MessageText
+    {
+        get => _MessageText;
+        set
+        {
+            if (_MessageText != value)
+            {
+                _MessageText = value;
+                OnPropertyChanged(nameof(MessageText));
+            }
+        }
+    }
+    public Color MessageTextColor
+    {
+        get => _messageTextColor;
+        set
+        {
+            if (_messageTextColor != value)
+            {
+                _messageTextColor = value;
+                OnPropertyChanged(nameof(MessageTextColor));
+            }
+        }
+    }
 
     public SignInPage()
     {
@@ -80,18 +120,20 @@ public partial class SignInPage : ContentPage
         EntryAsPassword = !EntryAsPassword;
     }
     
-    private void OnSignInButtonClicked(object sender, EventArgs e)
-    {
-      if (_dbMokup.isExist(Username, UserPassword))
+     void OnSignInButtonClicked(object sender, EventArgs e)
+     {
+        var btn = sender as Button;
+        if (_dbMokup.isExist(Username, UserPassword))
       {
-            errorLbl.IsVisible=true;
-            errorLbl.Text = "Sign in successful!";
-      }
+            MessageText = MessagesHelper.SIGNINSUCCESSMESSAGE;
+            MessageTextColor = Colors.Green;
+        }
         else
         {
-            errorLbl.IsVisible = true;
-
-            errorLbl.Text = "Invalid username or password.";
+            MessageText = MessagesHelper.SIGNINERRORMESSAGE;
+            MessageTextColor = Colors.Red;
         }
-    }
+        IsMessageLabelVisble = true;
+     }
+    
 }

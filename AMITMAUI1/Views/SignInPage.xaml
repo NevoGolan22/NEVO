@@ -8,9 +8,9 @@
              Title="SignInPage">
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Offset="0.0" Color="LightCyan"/>
+            <GradientStop Offset="0.0" Color="Purple"/>
             <GradientStop Offset="0.5" Color="#3a7bd5"/>
-            <GradientStop Offset="1.0" Color="Purple"/>
+            <GradientStop Offset="1.0" Color="LightCyan"/>
         </LinearGradientBrush>
 
     </ContentPage.Background>
@@ -75,12 +75,11 @@
 
         <!-- שגיאה-->
         <Label
-       x:Name="errorLbl"
        FontSize="45"
        HorizontalTextAlignment="Center"
-       IsVisible="False"
-       Text="שגיאה"
-       TextColor="Red"/>
+       IsVisible="{Binding IsMessageLabelVisble}"
+       Text="{Binding MessageText}"
+       TextColor="{Binding MessageTextColor}"/>
 
     </VerticalStackLayout>
 </ContentPage>
