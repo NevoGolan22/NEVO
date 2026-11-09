@@ -14,15 +14,15 @@ public partial class SignInPage : ContentPage
         InitializeComponent();
         BindingContext = new SignInVeiwModel();
 
-        EntryAsPassword = true;
+        //EntryAsPassword = true;
 
-        _dbMokup = new DBMokup();
+        //_dbMokup = new DBMokup();
 
-        if (_isDEbugMode)
-        {
-            Username = "admin@mail.com";
-            UserPassword = "admin";
-        }
+        //if (_isDEbugMode)
+        //{
+        //    Username = "admin@mail.com";
+        //    UserPassword = "admin";
+        //}
     }
 
    

@@ -1,4 +1,5 @@
-﻿using AMITMAUI1.Service;
+﻿using AMITMAUI1.Helper;
+using AMITMAUI1.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace AMITMAUI1.VeiwModels
 {
-    public class SignInVeiwModel : ObservableObject
+    public class SignInVeiwModel : ViewModelBase /*ObservableObject*/
     {
         private string? _username;
         private string? _password;
@@ -17,13 +18,25 @@ namespace AMITMAUI1.VeiwModels
         private bool _isMessageLabelVisble;
         private string? _MessageText;
         private Color? _messageTextColor;
+        private string? _togglepasswordButtonText;
         private bool _isDEbugMode => true;
         private DBMokup? _dbMokup;
         public bool IsSignInButtonEnabled
         {
             get => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(UserPassword));
         }
-
+        public string TogglePasswordButtonText
+        {
+            get => _togglepasswordButtonText!;
+            set
+            {
+                if (_togglepasswordButtonText != value)
+                {
+                    _togglepasswordButtonText = value;
+                    OnPropertyChanged(nameof(TogglePasswordButtonText));
+                }
+            }
+        }
         public bool IsMessageLabelVisble
         {
             get => _isMessageLabelVisble;
@@ -106,16 +119,28 @@ namespace AMITMAUI1.VeiwModels
         {
             ShowPasswordCommand = new Command(OnTugglePasswordButtonClicked);
             SignInCommand = new Command(OnSignInButtonClicked);
+            
+            TogglePasswordButtonText = FontHelper.CLOSED_EYE_ICON;
+
+            //EntryAsPassword = true;
+
+            //_dbMokup = new DBMokup();
+
+            //if (_isDEbugMode)
+            //{
+            //    Username = "admin@mail.com";
+            //    UserPassword = "admin";
+            //}
         }
+
         void OnTugglePasswordButtonClicked()
         {
-            //var visBtn = sender as Button;
-            //if (EntryAsPassword)
-            //    visBtn!.Text = FontHelper.CLOSED_EYE_ICON;
-            //else
-            //    visBtn!.Text = FontHelper.OPEN_EYE_ICON;
+            if (EntryAsPassword)
+                TogglePasswordButtonText = FontHelper.CLOSED_EYE_ICON;
+            else
+                TogglePasswordButtonText = FontHelper.OPEN_EYE_ICON;
 
-            //EntryAsPassword = !EntryAsPassword;
+            EntryAsPassword = !EntryAsPassword;
         }
 
         void OnSignInButtonClicked()

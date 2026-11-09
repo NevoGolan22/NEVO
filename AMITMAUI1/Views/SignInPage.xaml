@@ -56,7 +56,7 @@
                    BackgroundColor="Transparent"
                    FontSize="24"
                    HorizontalOptions="End"
-                   Text="&#xe8f5;"
+                   Text="{Binding TogglePasswordButtonText};"
                    FontFamily="MaterialIcons"
                    TextColor="White"
                    VerticalOptions="Center"
