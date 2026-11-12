@@ -117,46 +117,54 @@ namespace AMITMAUI1.VeiwModels
 
         public SignInVeiwModel()
         {
-            ShowPasswordCommand = new Command(OnTugglePasswordButtonClicked);
+            // ShowPasswordCommand = new Command(OnTugglePasswordButtonClicked);
+            ShowPasswordCommand = new Command(() =>
+            {
+                if (EntryAsPassword)
+                    TogglePasswordButtonText = FontHelper.CLOSED_EYE_ICON;
+                else
+                    TogglePasswordButtonText = FontHelper.OPEN_EYE_ICON;
+
+                EntryAsPassword = !EntryAsPassword;
+            });
             SignInCommand = new Command(OnSignInButtonClicked);
             
             TogglePasswordButtonText = FontHelper.CLOSED_EYE_ICON;
 
-            //EntryAsPassword = true;
+            EntryAsPassword = true;
 
-            //_dbMokup = new DBMokup();
+            _dbMokup = new DBMokup();
 
-            //if (_isDEbugMode)
-            //{
-            //    Username = "admin@mail.com";
-            //    UserPassword = "admin";
-            //}
+            if (_isDEbugMode)
+            {
+                Username = "admin@mail.com";
+                UserPassword = "admin";
+            }
         }
 
         void OnTugglePasswordButtonClicked()
         {
-            if (EntryAsPassword)
-                TogglePasswordButtonText = FontHelper.CLOSED_EYE_ICON;
-            else
-                TogglePasswordButtonText = FontHelper.OPEN_EYE_ICON;
+            //if (EntryAsPassword)
+            //    TogglePasswordButtonText = FontHelper.CLOSED_EYE_ICON;
+            //else
+            //    TogglePasswordButtonText = FontHelper.OPEN_EYE_ICON;
 
-            EntryAsPassword = !EntryAsPassword;
+            //EntryAsPassword = !EntryAsPassword;
         }
 
         void OnSignInButtonClicked()
         {
-            //var btn = sender as Button;
-            //if (_dbMokup.isExist(Username, UserPassword))
-            //{
-            //    MessageText = MessagesHelper.SIGNINSUCCESSMESSAGE;
-            //    MessageTextColor = Colors.Green;
-            //}
-            //else
-            //{
-            //    MessageText = MessagesHelper.SIGNINERRORMESSAGE;
-            //    MessageTextColor = Colors.Red;
-            //}
-            //IsMessageLabelVisble = true;
+            if (_dbMokup!.IsExist(Username, UserPassword))
+            {
+                MessageText = MessagesHelper.SIGNINSUCCESSMESSAGE;
+                MessageTextColor = Colors.Green;
+            }
+            else
+            {
+                MessageText = MessagesHelper.SIGNINERRORMESSAGE;
+                MessageTextColor = Colors.Red;
+            }
+            IsMessageLabelVisble = true;
         }
     }
 }
